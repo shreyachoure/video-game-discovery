@@ -1,39 +1,15 @@
-import { useEffect, useState } from "react"
-import apiClient from "../services/apiClient"
+import useData from "./useData";
 
 export interface Platform {
-    id: number;
-    name: string;
-
+	id: number;
+	name: string;
+	slug: string;
 }
 
-interface FetchPlatforms {
-    count: number;
-    results: Platform[]
+export interface FetchPlatforms {
+	count: number;
+	results: Platform[];
 }
-const usePlatforms = () => {
+const usePlatforms = () => useData<Platform>("/platforms/lists/parents");
 
-    const[platforms, setPlatforms]= useState<Platform[]>([]);
-    const[error, setError] = useState(null);
-    const[isLoading, setIsLoading] = useState(false);
-
-    useEffect(() => {
-        setIsLoading(true)
-        apiClient
-        .get<FetchPlatforms>("/platforms/lists/parents")
-        .then(res => {
-            setPlatforms(res.data.results)
-            setIsLoading(false)
-        })
-        .catch(err => {setError(err.message)
-                      setIsLoading(false)}) 
-    }, [])
-
-    
-    return {platforms, error, isLoading}
-
-    
-
-}
-
-export default usePlatforms
+export default usePlatforms;

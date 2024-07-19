@@ -4,14 +4,15 @@ import GameCard from "./GameCard";
 import GridSkeleton from "./GridSkeleton";
 import { Genre } from "../hooks/useGenre";
 import { Platform } from "../hooks/usePlatforms";
+import { GameQuery } from "../App";
 
 interface Props {
-	selectedGenre: Genre | null;
-	selectedPlatform: Platform | null;
+	gameQuery: GameQuery;
 }
 
-const GameGrid = ({ selectedGenre, selectedPlatform }: Props) => {
-	const { games, error, isLoading } = useGames(selectedGenre, selectedPlatform);
+const GameGrid = ({ gameQuery }: Props) => {
+	// const { games, error, isLoading } = useGames(selectedGenre, selectedPlatform);
+	const { data: games, error, isLoading } = useGames(gameQuery);
 	const skeletons = [1, 2, 3, 4, 5, 6];
 	return (
 		<>
@@ -19,9 +20,10 @@ const GameGrid = ({ selectedGenre, selectedPlatform }: Props) => {
 				{error && <Text color="red.500">{error}</Text>}
 
 				<SimpleGrid
-					columns={{ sm: 1, md: 2, lg: 3, xl: 5 }}
+					// columns={{ sm: 1, md: 2, lg: 3, xl: 5 }}
+					columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
+					spacing={5}
 					padding={4}
-					spacing={10}
 				>
 					{isLoading &&
 						skeletons.map((skeleton) => <GridSkeleton key={skeleton} />)}

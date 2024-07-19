@@ -1,6 +1,5 @@
 import { Button, HStack, Image, List, ListItem } from "@chakra-ui/react";
-import useGenre from "../hooks/useGenre";
-import { Genre } from "../hooks/useGenre";
+import useGenre, { Genre } from "../hooks/useGenre";
 
 interface Props {
 	onSelectGenre: (genre: Genre) => void;
@@ -8,10 +7,10 @@ interface Props {
 }
 
 const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
-	const { genres } = useGenre();
+	const {  data: geners } = useGenre()
 	return (
 		<List>
-			{genres.map((genre) => (
+			{geners.map((genre) => (
 				<ListItem key={genre.id} margin={"1rem"}>
 					<HStack>
 						<Image
