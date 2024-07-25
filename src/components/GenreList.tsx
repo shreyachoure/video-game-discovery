@@ -7,10 +7,12 @@ interface Props {
 }
 
 const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
-	const {  data: geners } = useGenre()
+	const { genres, error, isPending } = useGenre();
+	if (error) return <div>{error?.message}</div>;
+	if (isPending) return <div>Loading ...</div>;
 	return (
 		<List>
-			{geners.map((genre) => (
+			{genres?.results.map((genre) => (
 				<ListItem key={genre.id} margin={"1rem"}>
 					<HStack>
 						<Image
